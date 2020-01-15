@@ -1,7 +1,8 @@
 module.exports = {
     'env': {
         'es6': true,
-        'node': true
+        'node': true,
+        "jest": true
     },
     'extends': 'eslint:recommended',
     'globals': {
@@ -35,7 +36,7 @@ module.exports = {
     ],
     "arrow-spacing": [
         "error", { "before": true, "after": true }
-    ]
+    ],
     "no-console": 0
     }
 }

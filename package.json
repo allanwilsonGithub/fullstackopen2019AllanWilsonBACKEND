@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
     "watch": "nodemon index.js",
     "build:bloglistUI": "rm -rf build && cd ../fullstackopen2019AllanWilson/part4/bloglist/ && npm run build --prod && cp -r build ../../../fullstackopen2019AllanWilsonbloglistBACKEND/",
     "deploy": "git push heroku master",
@@ -36,5 +36,8 @@
   "bugs": {
     "url": "https://github.com/allanwilsonGithub/fullstackopen2019AllanWilsonBlogListBACKEND/issues"
   },
-  "homepage": "https://github.com/allanwilsonGithub/fullstackopen2019AllanWilsonBlogListBACKEND#readme"
+  "homepage": "https://github.com/allanwilsonGithub/fullstackopen2019AllanWilsonBlogListBACKEND#readme",
+  "jest": {
+    "testEnvironment": "node"
+  }
 }
