@@ -1,5 +1,5 @@
 {
-  "name": "fullstackopen2019allanwilsonbackend",
+  "name": "fullstackopen2019allanwilsonbloglistbackend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon index.js",
-    "build:bloglistUI": "rm -rf build && cd ../fullstackopen2019AllanWilson/part4/bloglist/ && npm run build --prod && cp -r build ../../../fullstackopen2019AllanWilsonBACKEND/",
+    "build:bloglistUI": "rm -rf build && cd ../fullstackopen2019AllanWilson/part4/bloglist/ && npm run build --prod && cp -r build ../../../fullstackopen2019AllanWilsonbloglistBACKEND/",
     "deploy": "git push heroku master",
     "deploy:fullBlogList": "npm run build:bloglistUI && git add . && git commit -m uibuild && npm run deploy",
     "logs:prod": "heroku logs --tail",
@@ -33,7 +33,7 @@
     "nodemon": "^2.0.1"
   },
   "bugs": {
-    "url": "https://github.com/allanwilsonGithub/fullstackopen2019AllanWilsonBACKEND/issues"
+    "url": "https://github.com/allanwilsonGithub/fullstackopen2019AllanWilsonBlogListBACKEND/issues"
   },
-  "homepage": "https://github.com/allanwilsonGithub/fullstackopen2019AllanWilsonBACKEND#readme"
+  "homepage": "https://github.com/allanwilsonGithub/fullstackopen2019AllanWilsonBlogListBACKEND#readme"
 }
