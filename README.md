@@ -12,3 +12,5 @@ npm run watch
 npm test
 
 jest -t "<test name>"
+
+.
