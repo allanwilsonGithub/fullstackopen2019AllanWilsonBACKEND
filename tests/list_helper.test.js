@@ -116,3 +116,13 @@ test('of single blog', () => {
   )
 })
 })
+
+describe('most blogs', () => {
+
+test('of empty array', () => {
+  const blogs = []
+
+  const result = listHelper.mostBlogs(blogs)
+  expect(result).toBe("Not enough blogs to compare")
+})
+})

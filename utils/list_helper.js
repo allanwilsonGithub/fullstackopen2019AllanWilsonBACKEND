@@ -22,6 +22,13 @@ const favoriteBlog = (blogs) => {
     return "Not enough blogs to compare"
   }}
 
+const mostBlogs = (blogs) => {
+  if (blogs.length > 0) {
+    return "Pass"
+  } else {
+    return "Not enough blogs to compare"
+  }}
+
 module.exports = {
-  dummy, totalLikes, favoriteBlog
+  dummy, totalLikes, favoriteBlog, mostBlogs
 }
