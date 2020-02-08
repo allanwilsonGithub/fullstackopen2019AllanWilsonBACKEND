@@ -94,7 +94,6 @@ test('of empty array', () => {
   const result = listHelper.favoriteBlog(blogs)
   expect(result).toBe("Not enough blogs to compare")
 })
-})
 
 test('of single blog', () => {
   const blogs = [
@@ -115,4 +114,5 @@ test('of single blog', () => {
       likes: 9
     }
   )
+})
 })
