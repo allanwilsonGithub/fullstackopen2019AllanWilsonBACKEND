@@ -8,3 +8,7 @@ mongodb+srv://fullstack:<password>@cluster0-6rmsl.mongodb.net/bloglist?retryWrit
 -- To run backend (localhost:3003)
 
 npm run watch
+
+npm test
+
+jest -t "<test name>"
