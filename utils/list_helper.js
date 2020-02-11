@@ -32,3 +32,7 @@ const mostBlogs = (blogs) => {
 module.exports = {
   dummy, totalLikes, favoriteBlog, mostBlogs
 }
+
+// Define a function called mostBlogs that receives an array of blogs as a parameter.
+// The function returns the author who has the largest amount of blogs.
+// The return value also contains the number of blogs the top author has:
