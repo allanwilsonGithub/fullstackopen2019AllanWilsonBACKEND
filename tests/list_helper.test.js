@@ -125,4 +125,38 @@ test('of empty array', () => {
   const result = listHelper.mostBlogs(blogs)
   expect(result).toBe("Not enough blogs to compare")
 })
+
+test('most blogs of multiple blogs', () => {
+  const blogs = [
+    {
+      _id: '5a422aa71b54a676234d17f7',
+      title: "Burns Night 1",
+      author: "Robert Burns Lot",
+      likes: 5,
+      __v: 0
+    },
+    {
+      _id: '5a422aa71b54a676234d17f8',
+      title: "Burns Night 2",
+      author: "Ian Rankin",
+      likes: 7,
+      __v: 0
+    },
+    {
+      _id: '5a422aa71b54a676234d17f9',
+      title: "Burns Night 3",
+      author: "Robert Burns Lot",
+      likes: 9,
+      __v: 0
+    }]
+
+  const result = listHelper.mostBlogs (blogs)
+  expect(result).toEqual(
+      {
+      author: "Robert Burns Lot",
+      blogs: 2
+    }
+  )
+})
+
 })

@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 const dummy = (blogs) => {
   return 1
 }
@@ -24,7 +26,15 @@ const favoriteBlog = (blogs) => {
 
 const mostBlogs = (blogs) => {
   if (blogs.length > 0) {
-    return "Pass"
+    mostBlogsArray = []
+
+
+    const allAuthors = blogs.map(x => x['author'])
+    const blogsPerAuthor = _.countBy(allAuthors)
+    console.log(blogsPerAuthor)
+
+
+    return blogs
   } else {
     return "Not enough blogs to compare"
   }}
