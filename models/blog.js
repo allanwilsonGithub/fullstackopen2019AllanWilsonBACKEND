@@ -1,11 +1,11 @@
-require('dotenv').config()
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
+mongoose.set('useCreateIndex', true)
+
 const url = process.env.MONGODB_URI
 
 console.log('connecting to', url)
 
-mongoose.set('useCreateIndex', true)
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result => {
     console.log('connected to MongoDB')
@@ -15,13 +15,13 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   })
 
 const blogSchema = new mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
+  title: { type: String, required: true },
+  title: { type: String, required: true },
+  url:   { type: String, required: true },
   likes: Number
 })
 
-blogSchema.plugin(uniqueValidator, { type: 'mongoose-unique-validator' })
+blogSchema.plugin(uniqueValidator)
 
 blogSchema.set('toJSON', {
   transform: (document, returnedObject) => {

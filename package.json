@@ -1,44 +1,26 @@
 {
-  "name": "fullstackopen2019allanwilsonbloglistbackend",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "jest --verbose",
-    "watch": "nodemon index.js",
-    "build:bloglistUI": "rm -rf build && cd ../fullstackopen2019AllanWilson/part4/bloglist/ && npm run build --prod && cp -r build ../../../fullstackopen2019AllanWilsonbloglistBACKEND/",
-    "deploy": "git push heroku master",
-    "deploy:fullBlogList": "npm run build:bloglistUI && git add . && git commit -m uibuild && npm run deploy",
-    "logs:prod": "heroku logs --tail",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/allanwilsonGithub/fullstackopen2019AllanWilsonBACKEND.git"
-  },
-  "author": "Allan Wilson",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.8.2",
+    "mongoose": "^5.9.16",
     "mongoose-unique-validator": "^2.0.3",
-    "morgan": "^1.9.1"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "jest": "^24.9.0",
-    "lodash": "^4.17.1 5",
-    "morgan": "^1.9.1",
-    "nodemon": "^2.0.1"
-  },
-  "bugs": {
-    "url": "https://github.com/allanwilsonGithub/fullstackopen2019AllanWilsonBlogListBACKEND/issues"
-  },
-  "homepage": "https://github.com/allanwilsonGithub/fullstackopen2019AllanWilsonBlogListBACKEND#readme",
-  "jest": {
-    "testEnvironment": "node"
+    "eslint": "^7.3.0",
+    "nodemon": "^2.0.4"
   }
 }

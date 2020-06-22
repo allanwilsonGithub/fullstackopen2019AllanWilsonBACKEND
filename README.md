@@ -1,16 +1,9 @@
-# fullstackopen2019AllanWilsonBACKEND
+start backend using nodemon with 'npm run dev'
 
-MongoDB
-user: fullstack
-pass: a!
-mongodb+srv://fullstack:<password>@cluster0-6rmsl.mongodb.net/bloglist?retryWrites=true&w=majority
+Online backend application at Heroku:
+https://damp-beyond-63743.herokuapp.com
 
--- To run backend (localhost:3003)
+Push changes with:
+git push heroku HEAD:master --force
 
-npm run watch
-
-npm test
-
-jest -t "<test name>"
-
-.
+heroku config:set MONGODB_URI=mongodb+srv://fullstack:<password>@cluster0-6rmsl.mongodb.net/bloglist-app?retryWrites=true&w=majority
