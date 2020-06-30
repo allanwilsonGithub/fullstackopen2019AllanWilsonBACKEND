@@ -12,8 +12,4 @@ heroku config:set MONGODB_URI=mongodb+srv://fullstack:<password>@cluster0-6rmsl.
 
 
 =========================================================
-For each blog : author, title, url and upvotes
-use nodemon
-
-ADD possible to add blogs with Postman
-READ returns the added blogs at the correct endpoint
+4.2 Blog list, step2 DONE
