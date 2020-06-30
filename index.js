@@ -1,12 +1,10 @@
 require('dotenv').config()
-const http = require('http')
 const express = require('express')
-const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors')
 const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
-//const Person = require('./models/person')
+const BlogList = require('./models/blog')
 
 
 const app = express()
@@ -18,31 +16,31 @@ morgan.token('id', function getId (req) {
   return req.id
 })
 
-morgan.token('content', function (req, res) {
+morgan.token('content', function (req) {
   return JSON.stringify(req.body)
 })
 
 app.use(morgan(':id :method :url :response-time :content'))
 
-app.get('/api/persons', (req, res) => {
-  Person.find({}).then(persons => {
-    res.json(persons)
+app.get('/api/blogList', (req, res) => {
+  BlogList.find({}).then(blogs => {
+    res.json(blogs)
   })
 })
 
 app.get('/info', (req, res) => {
-  Person.find({}).then(persons => {
+  BlogList.find({}).then(blogs => {
     res.send(`
-    <p>Phonebook has info for ${persons.length} people</p>
+    <p>Bloglist has info for ${blogs.length} blogs</p>
     <p>${Date()}</p>
     `)}
   )})
 
-app.get('/api/persons/:id', (req, res, next) => {
-  Person.findById(req.params.id)
-    .then(person => {
-      if (person) {
-        res.json(person)
+app.get('/api/bloglist/:id', (req, res, next) => {
+  BlogList.findById(req.params.id)
+    .then(blog => {
+      if (blog) {
+        res.json(blog)
       } else {
         res.status(404).end()
       }
@@ -50,11 +48,11 @@ app.get('/api/persons/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-app.put('/api/persons/:id', (req, res, next) => {
-  Person.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then(person => {
-      if (person) {
-        res.json(person)
+app.put('/api/bloglist/:id', (req, res, next) => {
+  BlogList.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(blog => {
+      if (blog) {
+        res.json(blog)
       } else {
         res.status(404).end()
       }
@@ -62,8 +60,9 @@ app.put('/api/persons/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-app.delete('/api/persons/:id', (req, res, next) => {
-  Person.findByIdAndRemove(req.params.id)
+app.delete('/api/bloglist/:id', (req, res, next) => {
+  BlogList.findByIdAndRemove(req.params.id)
+    /* eslint no-unused-vars: ["error", { "args": "none" }] */
     .then(result => {
       res.status(204).end()
     })
@@ -72,25 +71,34 @@ app.delete('/api/persons/:id', (req, res, next) => {
 
 
 
-app.post('/api/persons', (req, res, next) => {
+app.post('/api/bloglist', (req, res, next) => {
   const body = req.body
-  if (!body.name) {
+  if (!body.title) {
     return res.status(400).json({
-      error: 'name missing'
+      error: 'title missing'
     })
-  } else if (!body.number) {
+  } else if (!body.author) {
     return res.status(400).json({
-      error: 'number missing'
+      error: 'author missing'
+    })
+  } else if (!body.url) {
+    return res.status(400).json({
+      error: 'url missing'
+    })
+  } else if (!body.likes) {
+    return res.status(400).json({
+      error: 'likes missing'
     })
   }
-  const person = new Person({
-    name: body.name || false,
-    number: body.number || false,
-    id: body.id || false
+  const bloglist = new BlogList({
+    title: body.title || false,
+    author: body.author || false,
+    url: body.url || false,
+    likes: body.likes || false
   })
 
-  person.save().then(savedPerson => {
-    res.json(savedPerson)
+  bloglist.save().then(savedBlog => {
+    res.json(savedBlog)
   })
     .catch(error => next(error))
 
@@ -109,33 +117,7 @@ const errorHandler = (error, req, res, next) => {
 
 app.use(errorHandler)
 
-const PORT = 3003
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
-
-
-=======================================================================================
-
-
-
-
-
-const Blog = mongoose.model('Blog', blogSchema)
-
-const mongoUrl = 'mongodb://localhost/bloglist'
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-
-app.use(cors())
-app.use(express.json())
-
-app.get('/api/blogs', (request, response) => {
-  Blog
-    .find({})
-    .then(blogs => {
-      response.json(blogs)
-    })
-})
-
-
-
