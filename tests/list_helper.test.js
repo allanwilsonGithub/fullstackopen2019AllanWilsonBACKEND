@@ -77,4 +77,17 @@ describe('dummy returns', () => {
       )
     })
   })
+
+  describe('most blogs', () => {
+    test('most blogs', () => {
+      const result = listHelper.mostBlogs(blogs)
+      expect(result).toEqual(
+        {
+          title: 'Canonical string reduction',
+          author: 'Edsger W. Dijkstra',
+          likes: 12
+        }
+      )
+    })
+  })
 })

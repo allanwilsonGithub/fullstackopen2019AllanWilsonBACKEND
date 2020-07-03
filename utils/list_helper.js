@@ -1,3 +1,5 @@
+var _ = require('lodash')
+
 const dummy = (blogs) => {
   console.log(blogs)
   return 1
@@ -19,6 +21,16 @@ const favoriteBlog = (blogs) => {
   return { 'author': faveBlog.author, 'likes': faveBlog.likes, 'title': faveBlog.title }
 }
 
+const mostBlogs = (blogs) => {
+  const groupedBlogs = _.countBy(blogs, 'author')
+  console.log(groupedBlogs)
+  const blogsNumbers = groupedBlogs.//Get array of number of blogs (1,2,3)
+  // return the author with that number of blogs
+
+  return { 'author': 'Allan', 'blogs': 4 }
+}
+
+
 module.exports = {
-  dummy, totalLikes, favoriteBlog
+  dummy, totalLikes, favoriteBlog, mostBlogs
 }
