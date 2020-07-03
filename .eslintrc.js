@@ -2,7 +2,7 @@ module.exports = {
   'env': {
     'es6': true,
     'commonjs': true,
-    "jest": true,
+    'jest': true,
     'node': true
   },
   'extends': 'eslint:recommended',
