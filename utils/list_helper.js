@@ -23,9 +23,16 @@ const favoriteBlog = (blogs) => {
 
 const mostBlogs = (blogs) => {
   const groupedBlogs = _.countBy(blogs, 'author')
-  console.log(groupedBlogs)
-  const blogsNumbers = groupedBlogs.//Get array of number of blogs (1,2,3)
-  // return the author with that number of blogs
+  const blogsNumbers = Object.keys(groupedBlogs).map(
+   (key) => groupedBlogs[key]
+  )
+  const mostBlogAmount = Math.max(...blogsNumbers)
+
+  const getKeyByValue = (object, value) => {
+  return Object.keys(object).find(key => object[key] === value)
+  }
+  const authorWithMostBlogs = getKeyByValue(groupedBlogs, mostBlogAmount)
+  console.log('Author: ', authorWithMostBlogs)
 
   return { 'author': 'Allan', 'blogs': 4 }
 }
