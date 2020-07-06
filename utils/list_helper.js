@@ -36,7 +36,30 @@ const mostBlogs = (blogs) => {
   return { 'author': authorWithMostBlogs, 'blogs': mostBlogAmount }
 }
 
+const mostLikes = (blogs) => {
+  // Get array of authors
+  const groupedBlogs = _.countBy(blogs, 'author')
+  const authors = Object.keys(groupedBlogs)
+
+  // Get amount of likes per author
+  const authorTotalLikesArray = []
+  authors.map(currAuthor => {
+    let currLikes = 0
+    blogs.map(blog => {
+      if (blog.author === currAuthor) {
+        currLikes += blog.likes
+      }
+    })
+    authorTotalLikesArray.push({ currAuthor, currLikes })
+  })
+  const mostLikesAmount = Math.max(...authorTotalLikesArray.map(author => author.currLikes))
+
+  // Return the max likes with author
+  const authorWithMostLikes = authorTotalLikesArray.find(author => author.currLikes === mostLikesAmount)
+  return { author: authorWithMostLikes.currAuthor, likes: mostLikesAmount }
+}
+
 
 module.exports = {
-  dummy, totalLikes, favoriteBlog, mostBlogs
+  dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes
 }
