@@ -11,7 +11,7 @@ heroku config:set MONGODB_URI=mongodb+srv://fullstack:<password>@cluster0-6rmsl.
 
 
 TODO:
-restructure the bloglist app
+add middleware.js for errorHandler
 https://fullstackopen.com/en/part4/structure_of_backend_application_introduction_to_testing
 
 https://fullstackopen.com/en/part4/testing_the_backend
