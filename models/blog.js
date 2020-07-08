@@ -26,7 +26,6 @@ const blogSchema = new mongoose.Schema({
   likes: Number
 })
 
-
 blogSchema.plugin(uniqueValidator)
 
 blogSchema.set('toJSON', {
