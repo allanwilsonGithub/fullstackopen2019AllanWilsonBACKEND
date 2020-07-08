@@ -10,6 +10,16 @@ heroku config:set MONGODB_URI=mongodb+srv://fullstack:<password>@cluster0-6rmsl.
 
 
 
+TODO:
+restructure the bloglist app
+https://fullstackopen.com/en/part4/structure_of_backend_application_introduction_to_testing
 
-=========================================================
-4.2 Blog list, step2 DONE
+https://fullstackopen.com/en/part4/testing_the_backend
+define the test environment
+write tests that use their own separate database
+
+TEST1: 
+use supertest
+HTTP GET request to the /api/blogs url.
+Verify returns the correct amount of blog posts
+Verify it's in JSON format.

@@ -5,6 +5,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
 const BlogList = require('./models/blog')
+const logger = require('./utils/logger')
 
 
 const app = express()
@@ -119,5 +120,5 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+  logger.info(`Server running on port ${PORT}`)
 })
