@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
 const BlogList = require('./models/blog')
 const logger = require('./utils/logger')
+const middleware = require('./utils/middleware')
 
 const app = express()
 app.use(express.json())
@@ -26,18 +27,9 @@ morgan.token('content', function (req) {
 
 app.use(morgan(':id :method :url :response-time :content'))
 
-const errorHandler = (error, req, res, next) => {
-  console.error(error.message)
 
-  if (error.name === 'CastError') {
-    return res.status(400).send({ error: 'malformatted id' })
-  } else if (error.name === 'ValidationError') {
-    return res.status(400).send({ error: error.message })
-  }
-  next(error)
-}
 
-app.use(errorHandler)
+app.use(middleware.errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
