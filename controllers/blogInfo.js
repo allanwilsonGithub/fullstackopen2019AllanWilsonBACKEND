@@ -7,6 +7,6 @@ blogInfoRouter.get('/', (req, res) => {
     <p>Bloglist has info for ${blogs.length} blogs</p>
     <p>${Date()}</p>
     `)}
-)})
+  )})
 
 module.exports = blogInfoRouter

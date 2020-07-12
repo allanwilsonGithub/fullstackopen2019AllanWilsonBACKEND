@@ -11,15 +11,8 @@ heroku config:set MONGODB_URI=mongodb+srv://fullstack:<password>@cluster0-6rmsl.
 
 
 TODO:
-add middleware.js for errorHandler
-https://fullstackopen.com/en/part4/structure_of_backend_application_introduction_to_testing
-
-https://fullstackopen.com/en/part4/testing_the_backend
-define the test environment
-write tests that use their own separate database
-
-TEST1: 
-use supertest
-HTTP GET request to the /api/blogs url.
+=== 4.8: Blog list tests, step1 ===
 Verify returns the correct amount of blog posts
-Verify it's in JSON format.
+refactor the route handler to use the async/await syntax instead of promises
+USE:
+https://jestjs.io/docs/en/expect.html#tocontainequalitem
