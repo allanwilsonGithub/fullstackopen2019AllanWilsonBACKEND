@@ -44,6 +44,15 @@ test('2 blogs are returned', async () => {
   expect(response.body.length).toEqual(2)
 })
 
+test('id is defined', async () => {
+  const response = await api.get('/api/blogs')
+  expect(response.body[0].id).toBeDefined()
+})
+
+test('id_ is not defined', async () => {
+  const response = await api.get('/api/blogs')
+  expect(response.body[0]._id).not.toBeDefined()
+})
 
 
 afterAll(() => {
