@@ -6,8 +6,8 @@ blogRouter.get('/', async (req, res) => {
   res.json(blogs.map(blog => blog.toJSON()))
 })
 
-blogRouter.get('/:id', (req, res, next) => {
-  Blog.findById(req.params.id)
+blogRouter.get('/:id', async (req, res, next) => {
+  await Blog.findById(req.params.id)
     .then(blog => {
       if (blog) {
         res.json(blog)
@@ -18,7 +18,7 @@ blogRouter.get('/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-blogRouter.post('/', (req, res, next) => {
+blogRouter.post('/', async (req, res, next) => {
   const body = req.body
   if (!body.title) {
     return res.status(400).json({
@@ -44,14 +44,14 @@ blogRouter.post('/', (req, res, next) => {
     likes: body.likes || false
   })
 
-  bloglist.save().then(savedBlog => {
+  await bloglist.save().then(savedBlog => {
     res.json(savedBlog)
   })
     .catch(error => next(error))
 })
 
-blogRouter.delete('/:id', (req, res, next) => {
-  Blog.findByIdAndRemove(req.params.id)
+blogRouter.delete('/:id', async (req, res, next) => {
+  await Blog.findByIdAndRemove(req.params.id)
     /* eslint no-unused-vars: ["error", { "args": "none" }] */
     .then(result => {
       res.status(204).end()
@@ -59,8 +59,8 @@ blogRouter.delete('/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-blogRouter.put('/:id', (req, res, next) => {
-  Blog.findByIdAndUpdate(req.params.id, req.body, { new: true })
+blogRouter.put('/:id', async (req, res, next) => {
+  await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(blog => {
       if (blog) {
         res.json(blog)

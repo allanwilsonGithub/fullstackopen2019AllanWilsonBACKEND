@@ -1,8 +1,8 @@
 const blogInfoRouter = require('express').Router()
 const Blog = require('../models/blog')
 
-blogInfoRouter.get('/', (req, res) => {
-  Blog.find({}).then(blogs => {
+blogInfoRouter.get('/', async (req, res) => {
+  await Blog.find({}).then(blogs => {
     res.send(`
     <p>Bloglist has info for ${blogs.length} blogs</p>
     <p>${Date()}</p>
