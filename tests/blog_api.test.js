@@ -69,9 +69,9 @@ test('POST new blog', async () => {
     .expect('Content-Type', /json/)
     .expect(200)
 
+//verify that the correct number of blogs are returned
   let response = await api.get('/api/blogs')
   expect(response.body.length).toEqual(3)
-
 
 //verify that the correct information is in the blog
   response = await api.get(`/api/blogs/${response.body[2].id}`)
@@ -79,6 +79,29 @@ test('POST new blog', async () => {
 
 })
 
+test('missing likes entry defaults likes to 0', async () => {
+    const data = {
+      "title": "Title. Missing likes entry test",
+      "author": "Author. Missing likes entry test",
+      "url": "http://burns.gov/blog/Missing-likes-entry-test"
+      }
+
+  await api
+    .post('/api/blogs')
+    .send(data)
+    .set('Accept', 'application/json')
+    .expect('Content-Type', /json/)
+    .expect(200)
+
+//verify that the correct number of blogs are returned
+  let response = await api.get('/api/blogs')
+  expect(response.body.length).toEqual(4)
+
+//verify that the correct information is in the blog
+  response = await api.get(`/api/blogs/${response.body[3].id}`)
+  expect(response.body.likes).toEqual(`0`)
+
+})
 
 
 afterAll(() => {
