@@ -54,6 +54,32 @@ test('id_ is not defined', async () => {
   expect(response.body[0]._id).not.toBeDefined()
 })
 
+test('POST new blog', async () => {
+    const data = {
+      "title": "Robert THE Burns test_add-user",
+      "author": "Robert THE Burns test_add-user",
+      "url": "http://burns.gov/blog/woohoo-test-add-user",
+      "likes": "69"
+      }
+
+  await api
+    .post('/api/blogs')
+    .send(data)
+    .set('Accept', 'application/json')
+    .expect('Content-Type', /json/)
+    .expect(200)
+
+  let response = await api.get('/api/blogs')
+  expect(response.body.length).toEqual(3)
+
+
+//verify that the correct information is in the blog
+  response = await api.get(`/api/blogs/${response.body[2].id}`)
+  expect(response.body.title).toEqual(`Robert THE Burns test_add-user`)
+
+})
+
+
 
 afterAll(() => {
   mongoose.connection.close()
