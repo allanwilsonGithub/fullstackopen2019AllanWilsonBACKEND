@@ -103,6 +103,37 @@ test('missing likes entry defaults likes to 0', async () => {
 
 })
 
+test('Title missing returns 400 error', async () => {
+    const data = {
+      "author": "Robert THE Burns test_add-user",
+      "url": "http://burns.gov/blog/woohoo-test-add-user",
+      "likes": "69"
+      }
+
+  await api
+    .post('/api/blogs')
+    .send(data)
+    .set('Accept', 'application/json')
+    .expect('Content-Type', /json/)
+    .expect(400)
+
+})
+
+test('URL missing returns 400 error', async () => {
+    const data = {
+      "title": "Random title",
+      "author": "Robert THE Burns test_add-user",
+      "likes": "69"
+      }
+
+  await api
+    .post('/api/blogs')
+    .send(data)
+    .set('Accept', 'application/json')
+    .expect('Content-Type', /json/)
+    .expect(400)
+
+})
 
 afterAll(() => {
   mongoose.connection.close()
