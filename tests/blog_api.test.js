@@ -95,11 +95,11 @@ test('missing likes entry defaults likes to 0', async () => {
 
 //verify that the correct number of blogs are returned
   let response = await api.get('/api/blogs')
-  expect(response.body.length).toEqual(4)
+  expect(response.body.length).toEqual(3)
 
 //verify that the correct information is in the blog
-  response = await api.get(`/api/blogs/${response.body[3].id}`)
-  expect(response.body.likes).toEqual(`0`)
+  response = await api.get(`/api/blogs/${response.body[2].id}`)
+  expect(response.body.likes).toEqual(0)
 
 })
 

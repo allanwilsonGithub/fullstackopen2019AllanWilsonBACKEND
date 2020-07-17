@@ -33,9 +33,7 @@ blogRouter.post('/', async (req, res, next) => {
       error: 'url missing'
     })
   } else if (!body.likes) {
-    return res.status(400).json({
-      error: 'likes missing'
-    })
+    body.likes = 0
   }
   const bloglist = new Blog({
     title: body.title || false,
