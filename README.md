@@ -8,3 +8,5 @@ git push heroku HEAD:master --force
 
 heroku config:set MONGODB_URI=mongodb+srv://fullstack:<password>@cluster0-6rmsl.mongodb.net/bloglist-app?retryWrites=true&w=majority
 
+==========================================
+4.14 Blog list expansions, step2 DONE
