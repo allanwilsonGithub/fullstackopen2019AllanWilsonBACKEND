@@ -151,9 +151,9 @@ describe('User Administration: when there is initially one user in db', () => {
     const usersAtStart = await helper.usersInDb()
 
     const newUser = {
-      username: 'mluukkai',
-      name: 'Matti Luukkainen',
-      password: 'salainen'
+      username: 'AllanWilson',
+      name: 'Allan Wilson',
+      password: 'secret'
     }
 
     await api
@@ -184,7 +184,7 @@ describe('User Administration: when there is initially one user in db', () => {
       .expect(400)
       .expect('Content-Type', /application\/json/)
 
-    expect(result.body.error).toContain('`username` to be unique')
+    expect(result.body.error).toContain('username should be unique')
 
     const usersAtEnd = await helper.usersInDb()
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
