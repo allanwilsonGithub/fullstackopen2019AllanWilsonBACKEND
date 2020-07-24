@@ -20,4 +20,4 @@ DONE: Status and response for unique username
 TODO: TEST: invalid users are not created
 TODO: TEST: invalid add user operation returns a suitable status code and error message.
 
-eval "$(ssh-agent -s)"
+ssh -T git@github.com
