@@ -39,7 +39,12 @@ blogRouter.post('/', async (req, res, next) => {
     title: body.title || false,
     author: body.author || false,
     url: body.url || false,
-    likes: body.likes || false
+    likes: body.likes || false,
+    user: {
+      username: 'allanWilson',
+      name: 'Allan Wilson',
+      id: '5f14bb2ca36e26156cb7b2f7'
+    }
   })
 
   await bloglist.save().then(savedBlog => {
