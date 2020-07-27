@@ -1,5 +1,6 @@
 const blogRouter = require('express').Router()
 const Blog = require('../models/blog')
+const User = require('../controllers/users')
 
 blogRouter.get('/', async (req, res) => {
   const blogs = await Blog.find({})
@@ -35,15 +36,22 @@ blogRouter.post('/', async (req, res, next) => {
   } else if (!body.likes) {
     body.likes = 0
   }
+
+  const randomUser = {
+      username: 'allanWilson12345',
+      name: 'Allan Wilson12345',
+      id: '5f14bb2ca36e26156cb12345'
+    }
+
   const bloglist = new Blog({
     title: body.title || false,
     author: body.author || false,
     url: body.url || false,
     likes: body.likes || false,
     user: {
-      username: 'allanWilson',
-      name: 'Allan Wilson',
-      id: '5f14bb2ca36e26156cb7b2f7'
+      username: randomUser.username,
+      name: randomUser.name,
+      id: randomUser.id
     }
   })
 
