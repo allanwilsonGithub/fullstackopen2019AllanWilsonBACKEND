@@ -5,6 +5,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)
 const errorHandler = require('./utils/middleware')
+const loginRouter = require('./controllers/login')
 
 logger.info('connecting to', config.MONGODB_URI)
 
@@ -27,6 +28,7 @@ const usersRouter = require('./controllers/users')
 app.use('/api/blogs', blogRouter)
 app.use('/info', blogInfoRouter)
 app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
 
 app.use(errorHandler)
 
