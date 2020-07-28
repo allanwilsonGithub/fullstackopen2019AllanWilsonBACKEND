@@ -3,7 +3,7 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 
 blogRouter.get('/', async (req, res) => {
-  const blogs = await Blog.find({})
+  const blogs = await Blog.find({}).populate('users')
   res.json(blogs.map(blog => blog.toJSON()))
 })
 
@@ -21,6 +21,8 @@ blogRouter.get('/:id', async (req, res, next) => {
 
 blogRouter.post('/', async (req, res, next) => {
   const body = req.body
+  const user = await User.findById(body.userId)
+
   if (!body.title) {
     return res.status(400).json({
       error: 'title missing'
@@ -37,24 +39,22 @@ blogRouter.post('/', async (req, res, next) => {
     body.likes = 0
   }
 
-  const randomUser = await User.find({})
-
   const bloglist = new Blog({
     title: body.title || false,
     author: body.author || false,
     url: body.url || false,
     likes: body.likes || false,
-    user: {
-      username: randomUser[0].username,
-      name: randomUser[0].name,
-      id: randomUser[0].id
-    }
+    user: user._id
   })
 
-  await bloglist.save().then(savedBlog => {
+  const savedBlog = await bloglist.save().then(savedBlog => {
     res.json(savedBlog)
   })
     .catch(error => next(error))
+
+  user.blogs = user.blogs.concat(bloglist._id)
+  await user.save()
+
 })
 
 blogRouter.delete('/:id', async (req, res, next) => {
