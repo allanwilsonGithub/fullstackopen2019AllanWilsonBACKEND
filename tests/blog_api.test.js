@@ -61,10 +61,10 @@ describe('Blog List: when there is initially 2 blogs in db', () => {
 
   test('POST new blog', async () => {
     const data = {
-      "title": "Robert THE Burns test_add-user",
-      "author": "Robert THE Burns test_add-user",
-      "url": "http://burns.gov/blog/woohoo-test-add-user",
-      "likes": "69"
+      'title': 'Robert THE Burns test_add-user',
+      'author': 'Robert THE Burns test_add-user',
+      'url': 'http://burns.gov/blog/woohoo-test-add-user',
+      'likes': '69'
     }
 
     await api
@@ -80,14 +80,14 @@ describe('Blog List: when there is initially 2 blogs in db', () => {
 
     //verify that the correct information is in the blog
     response = await api.get(`/api/blogs/${response.body[2].id}`)
-    expect(response.body.title).toEqual(`Robert THE Burns test_add-user`)
+    expect(response.body.title).toEqual('Robert THE Burns test_add-user')
   })
 
   test('missing likes entry defaults likes to 0', async () => {
     const data = {
-      "title": "Title. Missing likes entry test",
-      "author": "Author. Missing likes entry test",
-      "url": "http://burns.gov/blog/Missing-likes-entry-test"
+      'title': 'Title. Missing likes entry test',
+      'author': 'Author. Missing likes entry test',
+      'url': 'http://burns.gov/blog/Missing-likes-entry-test'
     }
 
     await api
@@ -108,9 +108,9 @@ describe('Blog List: when there is initially 2 blogs in db', () => {
 
   test('Title missing returns 400 error', async () => {
     const data = {
-      "author": "Robert THE Burns test_add-user",
-      "url": "http://burns.gov/blog/woohoo-test-add-user",
-      "likes": "69"
+      'author': 'Robert THE Burns test_add-user',
+      'url': 'http://burns.gov/blog/woohoo-test-add-user',
+      'likes': '69'
     }
 
     await api
@@ -123,9 +123,9 @@ describe('Blog List: when there is initially 2 blogs in db', () => {
 
   test('URL missing returns 400 error', async () => {
     const data = {
-      "title": "Random title",
-      "author": "Robert THE Burns test_add-user",
-      "likes": "69"
+      'title': 'Random title',
+      'author': 'Robert THE Burns test_add-user',
+      'likes': '69'
     }
 
     await api
