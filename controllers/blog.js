@@ -25,7 +25,11 @@ blogRouter.get('/:id', async (req, res, next) => {
 blogRouter.post('/', async (req, res, next) => {
   const body = req.body
 
-  const decodedToken = jwt.verify(req.token, process.env.SECRET)
+  if (!req.token) {
+    return res.status(400).json({ error: 'token invalid or missing from POST request' })
+  }
+
+  const decodedToken = await jwt.verify(req.token, process.env.SECRET)
 
   if (!decodedToken.id) {
     return res.status(401).json({ error: 'token missing or invalid' })
@@ -68,12 +72,17 @@ blogRouter.post('/', async (req, res, next) => {
 
 blogRouter.delete('/:id', async (req, res, next) => {
 
+  if (!req.token) {
+    return res.status(400).json({ error: 'token invalid or missing from DELETE request' })
+  }
   const decodedToken = jwt.verify(req.token, process.env.SECRET)
-
+  console.log(2)
   if (!decodedToken.id) {
     return res.status(401).json({ error: 'token missing or invalid' })
   }
+  console.log(3)
   const userFromToken = await User.findById(decodedToken.id)
+  console.log(4)
   console.log(userFromToken._id)
 
   //compare user with blog creator

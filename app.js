@@ -29,8 +29,6 @@ const blogRouter = require('./controllers/blog')
 const blogInfoRouter = require('./controllers/blogInfo')
 const usersRouter = require('./controllers/users')
 
-
-
 app.use('/api/blogs', blogRouter)
 app.use('/info', blogInfoRouter)
 app.use('/api/users', usersRouter)

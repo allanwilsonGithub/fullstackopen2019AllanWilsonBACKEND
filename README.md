@@ -9,12 +9,11 @@ git push heroku HEAD:master --force
 heroku config:set MONGODB_URI=mongodb+srv://fullstack:<password>@cluster0-6rmsl.mongodb.net/bloglist-app?retryWrites=true&w=majority
 
 =================
-DONE blog can be deleted only by the user who added the blog.
-TODO deleting a blog without a token returns a suitable status code.
-TODO deleting a blog by a wrong user returns a suitable status code.
+DONE : blog can be deleted only by the user who added the blog.
+DONE : deleting a blog by a wrong user returns a suitable status code.
 TODO : errors:
-         missing token should return error (JsonWebTokenError: jwt must be provided)
-         invalid token
+         DONE missing token should return error (JsonWebTokenError: jwt must be provided) POST AND DELETE
+         invalid token HOW to catch "JsonWebTokenError: invalid signature"
          invalid blog id to delete
          
 
