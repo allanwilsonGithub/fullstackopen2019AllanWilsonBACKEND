@@ -8,3 +8,10 @@ git push heroku HEAD:master --force
 
 heroku config:set MONGODB_URI=mongodb+srv://fullstack:<password>@cluster0-6rmsl.mongodb.net/bloglist-app?retryWrites=true&w=majority
 
+Useful Commands:
+npm test -- -t 'new blog'
+
+TODO: change tests so that DB is always initialised with users and blogs
+TODO: fix the 2 tests that need a user token
+TODO: Write a new test that adding a blog fails with proper status code if token is not provided.
+  "401 Unauthorized" 

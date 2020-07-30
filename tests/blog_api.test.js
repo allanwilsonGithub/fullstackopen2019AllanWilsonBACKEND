@@ -65,12 +65,14 @@ describe('Blog List: when there is initially 2 blogs in db', () => {
       'author': 'Robert THE Burns test_add-user',
       'url': 'http://burns.gov/blog/woohoo-test-add-user',
       'likes': '69'
+      'userId': '5efbc1008d691b6a74cb5991'
     }
 
     await api
       .post('/api/blogs')
       .send(data)
       .set('Accept', 'application/json')
+      .set('Authorization', 'Bearer TODO')
       .expect('Content-Type', /json/)
       .expect(200)
 
