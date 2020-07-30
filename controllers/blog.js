@@ -67,12 +67,29 @@ blogRouter.post('/', async (req, res, next) => {
 })
 
 blogRouter.delete('/:id', async (req, res, next) => {
-  await Blog.findByIdAndRemove(req.params.id)
-    /* eslint no-unused-vars: ["error", { "args": "none" }] */
-    .then(result => {
-      res.status(204).end()
-    })
-    .catch(error => next(error))
+
+  const decodedToken = jwt.verify(req.token, process.env.SECRET)
+
+  if (!decodedToken.id) {
+    return res.status(401).json({ error: 'token missing or invalid' })
+  }
+  const userFromToken = await User.findById(decodedToken.id)
+  console.log(userFromToken._id)
+
+  //compare user with blog creator
+  const blogToDelete = await Blog.findById(req.params.id)
+  console.log(blogToDelete.user)
+
+  if (userFromToken._id.toString() === blogToDelete.user.toString()) {
+    await Blog.findByIdAndRemove(req.params.id)
+      /* eslint no-unused-vars: ["error", { "args": "none" }] */
+      .then(result => {
+        res.status(204).end()
+      })
+      .catch(error => next(error))
+    } else {
+      return res.status(401).json({ error: 'User not authorized to delete this blog' })
+    }
 })
 
 blogRouter.put('/:id', async (req, res, next) => {

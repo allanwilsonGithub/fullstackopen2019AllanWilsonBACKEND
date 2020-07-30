@@ -9,9 +9,20 @@ git push heroku HEAD:master --force
 heroku config:set MONGODB_URI=mongodb+srv://fullstack:<password>@cluster0-6rmsl.mongodb.net/bloglist-app?retryWrites=true&w=majority
 
 =================
+DONE blog can be deleted only by the user who added the blog.
+TODO deleting a blog without a token returns a suitable status code.
+TODO deleting a blog by a wrong user returns a suitable status code.
+TODO : errors:
+         missing token should return error (JsonWebTokenError: jwt must be provided)
+         invalid token
+         invalid blog id to delete
+         
 
-DONE add any real user when creating a blog
-DONE listing all blogs includes creator's user information with each blog
-  user: username, name, id
-TODO listing all users also displays the blogs created by each user
-  blogs: url, title, author, 
+
+
+Note that if you fetch a blog from the database,
+
+const blog = await Blog.findById(...)
+the field blog.user does not contain a string, but an Object. So if you want to compare the id of the object fetched from the database and a string id, normal comparison operation does not work. The id fetched from the database must be parsed into a string first.
+
+if ( blog.user.toString() === userid.toString() ) ...
