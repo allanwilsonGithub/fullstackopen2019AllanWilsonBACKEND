@@ -26,8 +26,15 @@ const initialTestBlogs = [
   }
 ]
 
-describe('Blog List: when there is initially 2 blogs in db', () => {
+describe('Blog List: when there is initially 2 blogs in db and one user', () => {
   beforeEach(async () => {
+    await User.deleteMany({})
+
+    const passwordHash = await bcrypt.hash('sekret', 10)
+    const user = new User({ username: 'root', passwordHash })
+
+    await user.save()
+
     await Blog.deleteMany({})
 
     let blogObject = new Blog(initialTestBlogs[0])
@@ -60,19 +67,35 @@ describe('Blog List: when there is initially 2 blogs in db', () => {
   })
 
   test('POST new blog', async () => {
+    // get userID of root user
+    const allUsers = await api.get('/api/users')
+    const root_user_ID = (allUsers.body[0].id)
+
+    // get token for root user
+    const postTokenRequest = await api.post('/api/login')
+    .send(
+    {
+    "username": "root",
+    "password": "sekret"
+    })
+    const rootUserToken = postTokenRequest.body.token
+
     const data = {
       'title': 'Robert THE Burns test_add-user',
       'author': 'Robert THE Burns test_add-user',
       'url': 'http://burns.gov/blog/woohoo-test-add-user',
-      'likes': '69'
-      'userId': '5efbc1008d691b6a74cb5991'
+      'likes': '69',
+      'user': {
+        'username': 'root',
+        'id': root_user_ID
+      }
     }
 
     await api
       .post('/api/blogs')
       .send(data)
       .set('Accept', 'application/json')
-      .set('Authorization', 'Bearer TODO')
+      .set('Authorization', `Bearer ${rootUserToken}`)
       .expect('Content-Type', /json/)
       .expect(200)
 
@@ -86,16 +109,34 @@ describe('Blog List: when there is initially 2 blogs in db', () => {
   })
 
   test('missing likes entry defaults likes to 0', async () => {
+    // get userID of root user
+    const allUsers = await api.get('/api/users')
+    const root_user_ID = (allUsers.body[0].id)
+
+    // get token for root user
+    const postTokenRequest = await api.post('/api/login')
+    .send(
+    {
+    "username": "root",
+    "password": "sekret"
+    })
+    const rootUserToken = postTokenRequest.body.token
+
     const data = {
-      'title': 'Title. Missing likes entry test',
-      'author': 'Author. Missing likes entry test',
-      'url': 'http://burns.gov/blog/Missing-likes-entry-test'
+      'title': 'Robert THE Burns test_missing_likes',
+      'author': 'Robert THE Burns test_missing_likes',
+      'url': 'http://burns.gov/blog/woohoo-test-missing_likes',
+      'user': {
+        'username': 'root',
+        'id': root_user_ID
+      }
     }
 
     await api
       .post('/api/blogs')
       .send(data)
       .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${rootUserToken}`)
       .expect('Content-Type', /json/)
       .expect(200)
 
@@ -109,44 +150,69 @@ describe('Blog List: when there is initially 2 blogs in db', () => {
   })
 
   test('Title missing returns 400 error', async () => {
+    // get userID of root user
+    const allUsers = await api.get('/api/users')
+    const root_user_ID = (allUsers.body[0].id)
+
+    // get token for root user
+    const postTokenRequest = await api.post('/api/login')
+    .send(
+    {
+    "username": "root",
+    "password": "sekret"
+    })
+    const rootUserToken = postTokenRequest.body.token
+
     const data = {
-      'author': 'Robert THE Burns test_add-user',
-      'url': 'http://burns.gov/blog/woohoo-test-add-user',
-      'likes': '69'
+      'author': 'Robert THE Burns test_title_missing',
+      'url': 'http://burns.gov/blog/woohoo-test-title_missing',
+      'likes': '69',
+      'user': {
+        'username': 'root',
+        'id': root_user_ID
+      }
     }
 
     await api
       .post('/api/blogs')
       .send(data)
       .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${rootUserToken}`)
       .expect('Content-Type', /json/)
       .expect(400)
   })
 
   test('URL missing returns 400 error', async () => {
+    // get userID of root user
+    const allUsers = await api.get('/api/users')
+    const root_user_ID = (allUsers.body[0].id)
+
+    // get token for root user
+    const postTokenRequest = await api.post('/api/login')
+    .send(
+    {
+    "username": "root",
+    "password": "sekret"
+    })
+    const rootUserToken = postTokenRequest.body.token
+
     const data = {
-      'title': 'Random title',
-      'author': 'Robert THE Burns test_add-user',
-      'likes': '69'
+      'title': 'Robert THE Burns test_url_missing',
+      'author': 'Robert THE Burns test_url_missing',
+      'likes': '69',
+      'user': {
+        'username': 'root',
+        'id': root_user_ID
+      }
     }
 
     await api
       .post('/api/blogs')
       .send(data)
       .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${rootUserToken}`)
       .expect('Content-Type', /json/)
       .expect(400)
-  })
-})
-
-describe('User Administration: when there is initially one user in db', () => {
-  beforeEach(async () => {
-    await User.deleteMany({})
-
-    const passwordHash = await bcrypt.hash('sekret', 10)
-    const user = new User({ username: 'root', passwordHash })
-
-    await user.save()
   })
 
   test('creation succeeds with a fresh username', async () => {
@@ -274,8 +340,32 @@ describe('User Administration: when there is initially one user in db', () => {
     expect(usersAtEnd).toHaveLength(usersAtStart.length)
   })
 
-})
+test('Missing token returns 401 Unauthorized', async () => {
+    // get userID of root user
+    const allUsers = await api.get('/api/users')
+    const root_user_ID = (allUsers.body[0].id)
 
+    const data = {
+      'title': 'Robert THE Burns test_add-user',
+      'author': 'Robert THE Burns test_add-user',
+      'url': 'http://burns.gov/blog/woohoo-test-add-user',
+      'likes': '69',
+      'user': {
+        'username': 'root',
+        'id': root_user_ID
+      }
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(data)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(401)
+
+  })
+
+})
 afterAll(() => {
   mongoose.connection.close()
 })

@@ -10,8 +10,6 @@ heroku config:set MONGODB_URI=mongodb+srv://fullstack:<password>@cluster0-6rmsl.
 
 Useful Commands:
 npm test -- -t 'new blog'
+sudo npm install bcrypt -save --unsafe-per 
 
-TODO: change tests so that DB is always initialised with users and blogs
-TODO: fix the 2 tests that need a user token
-TODO: Write a new test that adding a blog fails with proper status code if token is not provided.
-  "401 Unauthorized" 
+Status: Fullstack2020 Part 4 DONE. Ready for submission
