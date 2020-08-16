@@ -12,4 +12,4 @@ Useful Commands:
 npm test -- -t 'new blog'
 sudo npm install bcrypt -save --unsafe-per 
 
-Status: Fullstack2020 Part 4 DONE. Ready for submission
+Status: Fullstack2020 Part 4 DONE. Ready for submission 
