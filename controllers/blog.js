@@ -82,20 +82,19 @@ blogRouter.delete('/:id', async (req, res, next) => {
     return res.status(400).json({ error: 'token invalid or missing from DELETE request' })
   }
 
-  try {
-    const decodedToken = await jwt.verify(req.token, process.env.SECRET)
-  } catch (error) {
-      return  res.status(400).send(error)
-  }
 
+  let decodedToken = ""
+  try {
+    decodedToken = await jwt.verify(req.token, process.env.SECRET)
+  } catch (error) {
+    return  res.status(400).send(error)
+  }
 
   if (!decodedToken.id) {
     return res.status(401).json({ error: 'token missing or invalid' })
   }
-  console.log(3)
+
   const userFromToken = await User.findById(decodedToken.id)
-  console.log(4)
-  console.log(userFromToken._id)
 
   //compare user with blog creator
   const blogToDelete = await Blog.findById(req.params.id)
